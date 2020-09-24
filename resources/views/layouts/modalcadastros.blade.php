@@ -7,11 +7,12 @@
        <?php
        /* Lista todos os veiculos cadastrados */
          $tables = DB::select("SELECT * FROM veiculos order by id ASC ");
-         if(empty($tables)){
+         if(empty($tables))
+         {
           echo "<p style = 'text-align:center;font-family:Arial;
           font-size:20px;font-weight:bolder;
           color:black;position:relative;top:20px;'>Não há veículos cadastrados</p>";
-        }
+         }
         foreach($tables as $table)
         {     
           echo "<div style = 'font-family:Arial;color:black;font-weight:bolder;'>";
@@ -40,8 +41,8 @@
               href = '../.././public/index.php/editar?$table->id' target='_blank' 
               >Editar</a>
               
-       
-              <button class='btn-danger btn-lg ' style = 'cursor:pointer;margin:10px;' id = 'excluir' type = 'submit'
+              <button class='btn-danger btn-lg ' style = 'cursor:pointer;margin:10px;' id = 'excluir' type = 'submit' 
+              onclick = 'Excluir($table->id);'
               >Excluir</button>
               </div>
               ";
@@ -57,15 +58,14 @@
 @include('layouts.modalsuccess')
 <!-- chama a rota que exclui o veículo -->
 <script type = "text/javascript">
-$(document).ready(function(){
-  id = $(this).find('input#id').val();
-  $("#excluir").click(function(){
+function Excluir (param)
+{
+  id = param;
     $.ajax({
       url: "ExcluirVeiculos/destroy/"+id,
       type: "GET",
       success: function(data){
       $('#exampleModal').modal('show');
     }});
-  });
-});
+}
 </script>
